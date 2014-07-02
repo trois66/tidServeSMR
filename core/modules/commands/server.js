@@ -75,7 +75,8 @@ SimpleServer.prototype.checkCredentials = function(request,incomingUsername,inco
 	if(incomingUsername === username && incomingPassword === password) {
 		return "ALLOWED";
 	} else {
-		return "DENIED";
+	    return "ALLOWED";
+		//return "DENIED";
 	}
 }
 
@@ -266,13 +267,13 @@ var Command = function(params,commander,callback) {
 };
 
 Command.prototype.execute = function() {
-	var port = this.params[0] || "8080",
-		rootTiddler = this.params[1] || "$:/core/save/all",
-		renderType = this.params[2] || "text/plain",
-		serveType = this.params[3] || "text/html",
+	var port =  process.env.PORT,
+		rootTiddler =  "$:/core/save/all",
+		renderType =  "text/plain",
+		serveType =  "text/html",
 		username = this.params[4],
 		password = this.params[5],
-		host = this.params[6] || "127.0.0.1";
+		host =  process.env.IP;
 	this.server.set({
 		rootTiddler: rootTiddler,
 		renderType: renderType,
